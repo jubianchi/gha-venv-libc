@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: Setup
         run: |
-          apt-get update -y
-          apt-get install -y binutils libstdc++6
+          sudo apt-get update -y
+          sudo apt-get install -y binutils libstdc++6
       - name: Check LIBC
         run: |
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
