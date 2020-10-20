@@ -1,0 +1,27 @@
+name: check libc
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  check:
+    name: check
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-20.04
+          - os: ubuntu-18.04
+          - os: ubuntu-16.04
+    steps:
+      - name: Setup
+        run: |
+          apt-get update -y
+          apt-get install -y binutils libstdc++6
+      - name: Check LIBC
+        run: |
+          strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
+          strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
