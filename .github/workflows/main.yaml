@@ -20,7 +20,7 @@ jobs:
       - name: Setup
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y binutils libstdc++6
+          sudo apt-get install -y binutils libstdc++6=8.3.0
       - name: Check LIBC
         run: |
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
