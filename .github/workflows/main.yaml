@@ -24,7 +24,9 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-cache policy libstdc++6
-          sudo apt-get install -y binutils libstdc++6=${{ matrix.lib }}
+          sudo apt-get install -y binutils
+          sudo apt-get install -y libstdc++6
+          sudo apt-get install -y libstdc++6=${{ matrix.lib }} || true
       - name: Check LIBC
         run: |
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
