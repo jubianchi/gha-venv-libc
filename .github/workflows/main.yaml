@@ -24,6 +24,8 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-cache policy libstdc++6
+          sudo apt-cache policy gcc
+          sudo apt-cache policy g++
           sudo apt-get install -y binutils
           sudo apt-get install -y libstdc++6
           sudo apt-get install -y --allow-downgrades libstdc++6=${{ matrix.lib }} || true
