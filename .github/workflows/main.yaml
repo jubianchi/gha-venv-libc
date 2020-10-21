@@ -14,14 +14,17 @@ jobs:
       matrix:
         include:
           - os: ubuntu-20.04
+            lib: 10.2.0
           - os: ubuntu-18.04
+            lib: 8.4.0
           - os: ubuntu-16.04
+            lib: 9.3.0
     steps:
       - name: Setup
         run: |
           sudo apt-get update -y
           sudo apt-cache policy libstdc++6
-          sudo apt-get install -y binutils libstdc++6=8.3.0
+          sudo apt-get install -y binutils libstdc++6=${{ matrix.lib }}
       - name: Check LIBC
         run: |
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
