@@ -21,21 +21,20 @@ jobs:
             gcc: g++-8
           - os: ubuntu-16.04
             lib: 5.4.0-6ubuntu1~16.04.12
-            gcc: g++-7
+            gcc: g++-8
     steps:
-      - name: Inspect repositories
+      - name: Setup
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y binutils
       - name: Inspect repositories
         run: |
           sudo apt-cache policy libstdc++6
           sudo apt-cache policy ${{ matrix.gcc }}
-      - name: Setup
+      - name: Install LIBC/LIBCXX
         run: |
           sudo apt-get install -y --allow-downgrades libstdc++6=${{ matrix.lib }}
           sudo apt-get install --reinstall ${{ matrix.gcc }}
-      - name: Check LIBC
+      - name: Check LIBC/LIBCXX
         run: |
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
           strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
