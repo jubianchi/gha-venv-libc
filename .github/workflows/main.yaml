@@ -15,20 +15,26 @@ jobs:
         include:
           - os: ubuntu-20.04
             lib: 10.2.0-5ubuntu1~20.04
+            gcc: g++-8
           - os: ubuntu-18.04
             lib: 8.4.0-1ubuntu1~18.04
+            gcc: g++-8
           - os: ubuntu-16.04
             lib: 5.4.0-6ubuntu1~16.04.12
+            gcc: g++-7
     steps:
-      - name: Setup
+      - name: Inspect repositories
         run: |
           sudo apt-get update -y
-          sudo apt-cache policy libstdc++6
-          sudo apt-cache search g++
           sudo apt-get install -y binutils
-          sudo apt-get install -y libstdc++6
-          sudo apt-get install -y --allow-downgrades libstdc++6=${{ matrix.lib }} || true
-          sudo apt-get install --reinstall g++-8
+      - name: Inspect repositories
+        run: |
+          sudo apt-cache policy libstdc++6
+          sudo apt-cache policy ${{ matrix.gcc }}
+      - name: Setup
+        run: |
+          sudo apt-get install -y --allow-downgrades libstdc++6=${{ matrix.lib }}
+          sudo apt-get install --reinstall ${{ matrix.gcc }}
       - name: Check LIBC
         run: |
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
